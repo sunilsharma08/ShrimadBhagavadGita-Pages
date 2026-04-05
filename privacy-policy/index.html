@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy – Bhagavad Gita</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #1c1c1e;
+        --muted: #6e6e73;
+        --border: #e5e5ea;
+        --accent: #b8860b;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1c1c1e;
+          --text: #f2f2f7;
+          --muted: #98989f;
+          --border: #38383a;
+          --accent: #d4a017;
+        }
+      }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: "Noto Sans", "Noto Sans Devanagari", sans-serif;
+        font-size: 16px;
+        line-height: 1.7;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+
+      h1 {
+        font-size: 1.6em;
+        font-weight: 600;
+        margin-top: 0;
+        margin-bottom: 4px;
+        color: inherit;
+      }
+
+      .subtitle {
+        font-size: 0.85em;
+        color: var(--muted);
+        margin-bottom: 40px;
+      }
+
+      h2 {
+        font-size: 1.05em;
+        font-weight: 600;
+        margin-top: 36px;
+        margin-bottom: 8px;
+        color: inherit;
+      }
+
+      p,
+      li {
+        font-size: 1em;
+        color: inherit;
+        margin: 0 0 12px;
+      }
+
+      ul {
+        padding-left: 20px;
+        margin: 0 0 12px;
+      }
+
+      li {
+        margin-bottom: 6px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid currentColor;
+        opacity: 0.25;
+        margin: 40px 0;
+      }
+
+      .footer {
+        font-size: 0.82em;
+        color: var(--muted);
+        margin-top: 48px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="content"></div>
+    </div>
+
+    <script>
+      (function () {
+        var SUPPORTED = ["en", "hi", "sa"];
+        var params = new URLSearchParams(window.location.search);
+        var lang = (params.get("lang") || "en").toLowerCase();
+
+        if (SUPPORTED.indexOf(lang) === -1) {
+          lang = "en";
+        }
+
+        document.documentElement.lang = lang;
+
+        fetch("content/" + lang + ".html")
+          .then(function (res) {
+            if (!res.ok) {
+              throw new Error("not found");
+            }
+            return res.text();
+          })
+          .then(function (html) {
+            document.getElementById("content").innerHTML = html;
+          })
+          .catch(function () {
+            // Fallback to English on any error
+            fetch("content/en.html")
+              .then(function (res) {
+                return res.text();
+              })
+              .then(function (html) {
+                document.getElementById("content").innerHTML = html;
+              });
+          });
+      })();
+    </script>
+  </body>
+</html>
